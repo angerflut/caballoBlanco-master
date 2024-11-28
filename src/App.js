@@ -8,6 +8,7 @@ import SignUpPage from './views/SignPage';
 import NewReservation from './views/NuevaReserva'; // Nueva vista
 import SelectTablePage from './views/SelectTable'; // Página de selección de mesa
 import AdminDashboard from './views/AdminDashboard'; // Página de administrador
+import FinalReserva from './views/FinalReserva';  // Importa la nueva vista
 import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de importar Bootstrap
 
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
             <Route path="/register" element={<SignUpPage />} />
             <Route path="/new-reservation" element={<NewReservation />} />
             <Route path="/select-table" element={<SelectTablePage />} />
+            <Route path="/final-reservation" element={<FinalReserva />} />
 
             {/* Ruta protegida para el administrador */}
             <Route

@@ -25,10 +25,13 @@ const NewReservation = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert(`Reserva confirmada para ${name} el ${startDate.toLocaleString()} para ${numberOfPeople} personas.`);
-    
-    // Redirige a la página de selección de mesa
-    navigate('/select-table');  // Asegúrate de que la ruta sea '/select-table'
+  
+    // Redirige a la página de selección de mesa y pasa los datos de la reserva
+    navigate('/select-table', {
+      state: { name, numberOfPeople, startDate }
+    });
   };
+  
 
   return (
     <div style={styles.container}>

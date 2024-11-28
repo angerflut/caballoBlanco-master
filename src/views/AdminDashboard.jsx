@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Draggable from 'react-draggable';
-import tablesData from '../data/tables';
-
+import tablesData from '../data/tables'; // Datos simulados de mesas
 
 const AdminDashboard = () => {
   const [tables, setTables] = useState(tablesData);
@@ -61,8 +60,9 @@ const AdminDashboard = () => {
           <a className="navbar-brand" href="/">Restaurante Admin</a>
         </div>
       </nav>
-      <div className="row">
-        <div className="col-md-8">
+
+      <div className="row" style={styles.row}>
+        <div className="col-md-8" style={styles.mapContainer}>
           <h2>Mapa del Restaurante</h2>
           <div style={styles.restaurantMap}>
             {tables.map((table) => (
@@ -125,7 +125,8 @@ const AdminDashboard = () => {
             </div>
           )}
         </div>
-        <div className="col-md-4">
+
+        <div className="col-md-4" style={styles.panelContainer}>
           <h1>Panel de Administración</h1>
           <button className="btn btn-primary mb-3" onClick={handleAddTable}>
             Agregar Mesa
@@ -141,6 +142,7 @@ const AdminDashboard = () => {
           ))}
         </div>
       </div>
+
       <footer style={styles.footer}>
         &copy; {new Date().getFullYear()} Restaurante Admin. Todos los derechos reservados.
       </footer>
@@ -149,42 +151,52 @@ const AdminDashboard = () => {
 };
 
 const styles = {
-    container: {
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '100vh',
-    },
-    restaurantMap: {
-      position: 'relative',
-      width: '100%',
-      height: '500px',
-      backgroundColor: '#f8f9fa',
-      border: '1px solid #ddd',
-      borderRadius: '8px',
-    },
-    mapTable: {
-      position: 'absolute',
-      cursor: 'grab',
-    },
-    tableItem: {
-      border: '1px solid #ddd',
-      padding: '10px',
-      borderRadius: '5px',
-      backgroundColor: '#fff',
-    },
-    editForm: {
-      backgroundColor: '#f8f9fa',
-      padding: '15px',
-      borderRadius: '8px',
-      marginTop: '20px',
-    },
-    footer: {
-      backgroundColor: '#007bff',
-      color: '#fff',
-      textAlign: 'center',
-      padding: '10px 0',
-      marginTop: '20px',
-    },
-  };
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+  },
+  row: {
+    display: 'flex',
+  },
+  mapContainer: {
+    flex: 2,
+  },
+  restaurantMap: {
+    position: 'relative',
+    width: '100%',
+    height: '500px',
+    backgroundColor: '#f8f9fa',
+    border: '1px solid #ddd',
+    borderRadius: '8px',
+  },
+  mapTable: {
+    position: 'absolute',
+    cursor: 'grab',
+  },
+  tableItem: {
+    border: '1px solid #ddd',
+    padding: '10px',
+    borderRadius: '5px',
+    backgroundColor: '#fff',
+  },
+  panelContainer: {
+    flex: 1,
+    paddingLeft: '20px',
+  },
+  editForm: {
+    backgroundColor: '#f8f9fa',
+    padding: '15px',
+    borderRadius: '8px',
+    marginTop: '20px',
+  },
+  footer: {
+    backgroundColor: '#007bff',
+    color: '#fff',
+    textAlign: 'center',
+    padding: '10px 0',
+    marginTop: '20px',
+  },
+};
 
 export default AdminDashboard;

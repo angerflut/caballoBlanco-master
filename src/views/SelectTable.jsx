@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import tablesData from '../data/tables'; // Datos simulados de mesas
+
 import './SelectTable.css';
 
 const SelectTable = () => {
   const [tables, setTables] = useState(tablesData);
-  const [selectedTable, setSelectedTable] = useState(null); // Estado para la mesa seleccionada
+  const [selectedTable, setSelectedTable] = useState(null);
 
-  // Manejar la selección de una mesa
   const handleSelectTable = (table) => {
     setSelectedTable(table);
   };
 
   return (
-    <div className="select-table">
-      {/* Espacio izquierdo para el mapa */}
-      <div className="left-space">
+    <div className="select-table" style={styles.container}>
+      <div className="left-space" style={styles.leftSpace}>
         <h2>Mapa del Restaurante</h2>
-        <div className="restaurant-map">
+        <div className="restaurant-map" style={styles.restaurantMap}>
           {tables.map((table) => (
             <div
               key={table.id}
@@ -25,7 +25,7 @@ const SelectTable = () => {
                 left: table.mapPosition.left,
                 top: table.mapPosition.top,
               }}
-              onClick={() => handleSelectTable(table)} // Cuando se hace clic, seleccionamos la mesa
+              onClick={() => handleSelectTable(table)}
             >
               Mesa {table.number}
             </div>
@@ -33,21 +33,58 @@ const SelectTable = () => {
         </div>
       </div>
 
-      {/* Espacio derecho para mostrar la información de la mesa seleccionada */}
-      <div className="right-space">
+      <div className="right-space" style={styles.rightSpace}>
         {selectedTable ? (
-          <div className="table-info">
-            <h3>Información de la Mesa {selectedTable.number}</h3>
-            <p><strong>Capacidad:</strong> {selectedTable.capacity} personas</p>
-            <p><strong>Estado:</strong> {selectedTable.status === 'available' ? 'Disponible' : 'Reservada'}</p>
-            <p><strong>Posición:</strong> ({selectedTable.mapPosition.left}, {selectedTable.mapPosition.top})</p>
+          <div className="table-info" style={styles.tableInfo}>
+            <h3>Detalles de la Mesa {selectedTable.number}</h3>
+            <p><strong>Capacidad:</strong> {selectedTable.capacity}</p>
+            <p><strong>Estado:</strong> {selectedTable.status}</p>
+            <button className="btn btn-primary">Reservar Mesa</button>
           </div>
         ) : (
-          <p>Selecciona una mesa para ver su información.</p>
+          <p>Seleccione una mesa para ver los detalles</p>
         )}
       </div>
     </div>
   );
+};
+
+
+const styles = {
+  container: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '20px',
+  },
+  leftSpace: {
+    flex: 2,
+    textAlign: 'center',
+  },
+  rightSpace: {
+    flex: 1,
+    paddingLeft: '20px',
+  },
+  restaurantMap: {
+    position: 'relative',
+    width: '100%',
+    height: '500px',
+    backgroundColor: '#f8f9fa',
+    border: '1px solid #ddd',
+    borderRadius: '8px',
+  },
+  mapTable: {
+    position: 'absolute',
+    padding: '10px',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    cursor: 'pointer',
+    borderRadius: '5px',
+  },
+  tableInfo: {
+    backgroundColor: '#f8f9fa',
+    padding: '20px',
+    borderRadius: '8px',
+  },
 };
 
 export default SelectTable;

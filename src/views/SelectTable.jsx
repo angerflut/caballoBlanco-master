@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import tablesData from '../data/tables'; // Datos simulados de mesas
-
 import './SelectTable.css';
 
 const SelectTable = () => {
   const [tables, setTables] = useState(tablesData);
   const [selectedTable, setSelectedTable] = useState(null);
 
+  // Utiliza useLocation para obtener los datos pasados desde la página anterior (NuevaReserva)
+  const location = useLocation();
+  const { name, numberOfPeople, startDate } = location.state || {};
+
+  const navigate = useNavigate();
+
   const handleSelectTable = (table) => {
     setSelectedTable(table);
+  };
+
+  const handleProceedToFinalReservation = () => {
+    // Redirige a la página de "FinalReserva" pasando los datos de la reserva y la mesa seleccionada
+    navigate('/final-reservation', {
+      state: { name, numberOfPeople, startDate, selectedTable }
+    });
   };
 
   return (
@@ -39,7 +51,12 @@ const SelectTable = () => {
             <h3>Detalles de la Mesa {selectedTable.number}</h3>
             <p><strong>Capacidad:</strong> {selectedTable.capacity}</p>
             <p><strong>Estado:</strong> {selectedTable.status}</p>
-            <button className="btn btn-primary">Reservar Mesa</button>
+            <button 
+              className="btn btn-primary"
+              onClick={handleProceedToFinalReservation}
+            >
+              Confirmar y Reservar Mesa
+            </button>
           </div>
         ) : (
           <p>Seleccione una mesa para ver los detalles</p>
@@ -48,7 +65,6 @@ const SelectTable = () => {
     </div>
   );
 };
-
 
 const styles = {
   container: {
@@ -85,6 +101,7 @@ const styles = {
     padding: '20px',
     borderRadius: '8px',
   },
+  
 };
 
 export default SelectTable;

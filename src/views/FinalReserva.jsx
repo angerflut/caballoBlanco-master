@@ -1,53 +1,35 @@
 import React from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-const FinalReserva = () => {
+const FinalReservation = () => {
   const location = useLocation();
+  const { name, numberOfPeople, startDate, selectedTable } = location.state || {};
 
-  // Recupera la información pasada de la reserva desde la navegación
-  const { name, numberOfPeople, startDate } = location.state || {};
+  // Convertir startDate a formato legible
+  const formattedStartDate = startDate instanceof Date ? startDate.toLocaleDateString() : startDate;
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Confirmación de Reserva</h1>
+    <div className="final-reservation">
+      <h2>Confirmar Reserva</h2>
       
-      <div style={styles.infoContainer}>
+      <div className="reservation-details">
         <p><strong>Nombre:</strong> {name}</p>
-        <p><strong>Número de Personas:</strong> {numberOfPeople}</p>
-        <p><strong>Fecha y Hora:</strong> {startDate ? new Date(startDate).toLocaleString() : 'No especificada'}</p>
+        <p><strong>Número de personas:</strong> {numberOfPeople}</p>
+        <p><strong>Fecha de reserva:</strong> {formattedStartDate}</p>
       </div>
 
-      <Link to="/" style={styles.backLink}>Volver al inicio</Link>
+      {selectedTable && (
+        <div className="selected-table">
+          <h3>Detalles de la Mesa</h3>
+          <p><strong>Mesa:</strong> {selectedTable.number}</p>
+          <p><strong>Capacidad:</strong> {selectedTable.capacity}</p>
+          <p><strong>Estado:</strong> {selectedTable.status}</p>
+        </div>
+      )}
+
+      <button className="btn btn-primary">Confirmar Reserva</button>
     </div>
   );
 };
 
-const styles = {
-  container: {
-    padding: '20px',
-    maxWidth: '600px',
-    margin: '60px auto',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '8px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: '28px',
-    marginBottom: '20px',
-    color: '#333',
-  },
-  infoContainer: {
-    marginBottom: '20px',
-    fontSize: '18px',
-  },
-  backLink: {
-    display: 'block',
-    textAlign: 'center',
-    textDecoration: 'none',
-    color: '#61dafb',
-    marginTop: '30px',
-  },
-};
-
-export default FinalReserva;
+export default FinalReservation;

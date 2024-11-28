@@ -36,7 +36,7 @@ const App = () => {
 
             {/* Ruta protegida para el administrador */}
             <Route
-              path="/admin-dashboard"
+              path="admindashboard"
               element={
                 currentUser?.role === "admin" ? (
                   <AdminDashboard />

@@ -17,9 +17,15 @@ const Navbar = ({ user, onLogout }) => {
         </Link>
         <div className="d-flex ms-auto"> {/* Añadido ms-auto para mover los elementos a la derecha */}
           {user ? (
-            // Si el usuario está logueado, mostrar el saludo y el enlace de logout
+            // Si el usuario está logueado, mostrar el saludo, el botón de admin (si aplica) y el enlace de logout
             <>
               <span style={styles.greeting}>Hola, {user.name}</span>
+              {user.role === 'admin' && ( // Verificar si el usuario es administrador
+                <Link to="/admindashboard" style={styles.adminButton} className="btn btn-primary me-3">
+                  <Icon icon="mdi:shield-account" style={styles.icon} />
+                  Admin Dashboard
+                </Link>
+              )}
               <button className="btn btn-link" onClick={onLogout} style={styles.logoutButton}>
                 <Icon icon="mdi:logout" style={styles.icon} />
                 Cerrar sesión
@@ -88,6 +94,17 @@ const styles = {
     fontSize: '16px',
     fontWeight: 'bold',
     marginRight: '15px',
+  },
+  adminButton: {
+    textDecoration: 'none',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    padding: '10px 15px',
+    borderRadius: '5px',
+    display: 'flex',
+    alignItems: 'center',
   },
 };
 
